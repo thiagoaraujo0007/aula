@@ -16,6 +16,15 @@ app.use(express.json());
 
 app.use(express.urlencoded({extended: true}));
 
+const db = require("./app/models");
+db.Sequelize.sync()
+ .then(() => {
+    console.log("banco conectado!")
+ })
+ .catch((err) =>{
+    console.log("Falha ao acessar banco de dados: "+ err.message)
+ })
+
 app.get("/" , (req,res) => { 
     res.json({nessage: 'Hello World!!' })
 
