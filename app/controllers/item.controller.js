@@ -43,15 +43,70 @@ exports.findALL = (req,res) => {
 };
 
 exports.findOne = (req,res) => {
-
+   const id = req.params.id;
+   Item.findByPk(id)
+    .then(data =>{
+        if(data){
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Não foi possivel encrotrar um item com o id= ${id}.`
+            });
+        }
+    })
+  .catch(err =>{
+      res.status(500).send({
+          message: "Ocorreu um erro ao tentar encontrar um item com o id ="+ id
+      });
+  });
 };
 
 exports.update = (req,res) => {
+   const id = req.params.id;
+   Item.update(req.body, {
+       where : {id:id}
+   })
+   .then(num => {
+       if (num == 1){
+           res.send({
+               message: "O item foi alulizado de maneira bem sucedida."
+           });
 
+       } else {
+           res.send({
+               message: `Nao foi possivel atualizar  o item com o id= ${id}.`
+           });
+       }
+   })
+ .catch(err => {
+     res.status(500).send({
+         message: "Ocoreu um erro ao tentar atualiza o item do id="+ id
+     })
+ })
 };
 
 exports.delete = (req,res) => {
-
+const id = req.params.id;
+     Item.destroy({
+     whre: {id:id}
+      })
+.then(num => {
+    if (num==1) {
+        res.send({
+            message: "O item foi  apagado com secesso!"
+        });
+    } else { 
+        res.send({
+            message: `Não foi possivel apagar o item com id ${id}.`
+        });
+        
+    }
+})
+.catch(err => {
+    res.status(500).send({
+        message: "ocoreu um erro ao tentar apagar o item com id =" + id
+    })
+})
 };
 
 exports.deleteALL = (req,res) => {
