@@ -110,9 +110,30 @@ const id = req.params.id;
 };
 
 exports.deleteALL = (req,res) => {
-
+Item.destroy({
+    where: {},
+    truncate: false
+})
+.then(nums =>{
+    res.send({ message: `${nums} Itms foram apagados com sucesso.`});
+})
+.catch(err => {
+    res.status(500).send({
+        message:
+        err.message || "Algum erro occreu ao tenta apagar todos os items solicitados"
+    });
+});
 };
 
 exports.findALLFlammabes = (req,res) => {
-
+Item.findALL({ where: {isFlammable: true }})
+.then(data => {
+    res.send(data);
+})
+.catch(err =>{
+    res.status(500).send({
+        message:
+        err.message || "Algum erro ocorreu ao tentar apagar todas os items."
+    });
+})
 };
