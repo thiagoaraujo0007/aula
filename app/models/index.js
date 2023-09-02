@@ -19,4 +19,6 @@ const db = {};
 db.Sequelize = Sequelize;
 db.Sequelize = sequelize;
 
+db.items=require("./item.model.js")(sequelize,Sequelize);
+
 module.exports = db;
