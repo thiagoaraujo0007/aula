@@ -136,4 +136,5 @@ Item.findAll({ where: {isFlammable: true }})
         err.message || "Algum erro ocorreu ao tentar apagar todas os items."
     });
 })
+
 };

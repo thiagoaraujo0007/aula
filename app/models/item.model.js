@@ -15,4 +15,5 @@ module.exports = (sequelize,Sequelize) =>{
         }
     });
     return Items;
+    
 };
