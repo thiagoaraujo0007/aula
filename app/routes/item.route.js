@@ -3,19 +3,19 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    router.post("/", item.create);
+    router.post("/", items.create);
 
-    router.get("/", item.findALL);
+    router.get("/", items.findALL);
 
-    router.get("/Flammabless", item.findALLFlammabless);
+    router.get("/Flammabless", items.findALLFlammabes);
 
-    router.get("/:id", item.findOne);
+    router.get("/:id", items.findOne);
 
-    router.put("/:id", item.update);
+    router.put("/:id", items.update);
 
-    router.delete("/:id", item.delete);
+    router.delete("/:id", items.delete);
 
-    router.delete("/", item.deleteALL);
+    router.delete("/", items.deleteALL);
 
     app.use('/api/items', router);
     
