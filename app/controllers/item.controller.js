@@ -1,5 +1,5 @@
 const db = require("../models");
-const Item = db.item;
+const Item = db.items;
 const Op = db.Sequelize.Op;
 // teste 1
 exports.create = (req,res) => {
@@ -11,12 +11,12 @@ exports.create = (req,res) => {
    }
    const item = {
        name: req.body.name,
-       decription: req.body.description,
+       description: req.body.description,
        quantity: req.body.quantity,
        is_flammable: req.body.is_flammable ? req.body.is_flammable : false
         }
        Item.create(item)
-       .them(data =>{
+       .then(data =>{
            res.send(data);
        })
      .catch(err =>{
@@ -26,12 +26,12 @@ exports.create = (req,res) => {
          })
      }) 
     };
-exports.findALL = (req,res) => {
+exports.findAll = (req,res) => {
    const name = req.body.name;
    var condition = name ? { name: { [Op.like]: `%${name}%` }} : null;
 
-   Item.findALL({where: condition})
-   .them(data =>{
+   Item.findAll({where: condition})
+   .then(data =>{
        res.send(data);
    })
  .catch(err =>{
@@ -109,7 +109,7 @@ const id = req.params.id;
 })
 };
 
-exports.deleteALL = (req,res) => {
+exports.deleteAll = (req,res) => {
 Item.destroy({
     where: {},
     truncate: false
@@ -125,8 +125,8 @@ Item.destroy({
 });
 };
 
-exports.findALLFlammabes = (req,res) => {
-Item.findALL({ where: {isFlammable: true }})
+exports.findAllFlammabes = (req,res) => {
+Item.findAll({ where: {isFlammable: true }})
 .then(data => {
     res.send(data);
 })
